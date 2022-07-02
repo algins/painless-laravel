@@ -16,6 +16,12 @@ class Article extends Model
     use ArticleRepository;
     use HasFactory;
 
+    protected $fillable = [
+        'title',
+        'content',
+        'status',
+    ];
+
     public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
