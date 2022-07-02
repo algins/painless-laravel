@@ -8,18 +8,16 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('articles', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
             $table->text('content');
-            $table->integer('comments_count');
-            $table->string('status');
             $table->timestamps();
+            $table->foreignId('article_id')->constrained()->onDelete('cascade');
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('articles');
+        Schema::dropIfExists('comments');
     }
 };

@@ -10,6 +10,13 @@ class ArticleSeeder extends Seeder
 {
     public function run(): void
     {
-        Article::factory()->count(10)->create();
+        $commentsCount = 5;
+
+        Article::factory()
+            ->count(10)
+            ->hasComments($commentsCount)
+            ->create([
+                'comments_count' => $commentsCount,
+            ]);
     }
 }

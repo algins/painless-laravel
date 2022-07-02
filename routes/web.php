@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Web\ArticleController;
+use App\Http\Controllers\Web\Article\CommentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,4 +21,5 @@ Route::get('/', function () {
 
 Route::resources([
     'articles' => ArticleController::class,
+    'articles.comments' => CommentController::class,
 ]);
