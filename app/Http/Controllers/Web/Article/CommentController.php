@@ -7,6 +7,7 @@ use App\Http\Requests\StoreCommentRequest;
 use App\Models\Article;
 use App\Models\Article\Comment;
 use App\Mutators\CommentMutator;
+use App\Services\ArticleService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -28,8 +29,7 @@ class CommentController extends Controller
 
     public function store(StoreCommentRequest $request, Article $article): RedirectResponse
     {
-        $attributes = $request->validated();
-        CommentMutator::create($attributes, $article);
+        ArticleService::createComment($article, $request->validated());
 
         return redirect()->route('articles.comments.index', $article);
     }

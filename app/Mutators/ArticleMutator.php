@@ -6,18 +6,15 @@ use App\Models\Article;
 use App\Models\Article\Comment;
 use Illuminate\Support\Facades\DB;
 
-class CommentMutator
+class ArticleMutator
 {
-    public static function create(array $attributes, Article $article): Comment
+    public static function addComment(Article $article, Comment $comment): Article
     {
-        $comment = new Comment($attributes);
-
         DB::transaction(function () use ($comment, $article) {
+            $article->comments()->save($comment);
             $article->increment('comments_count');
-            $comment->article()->associate($article);
-            $comment->save();
         });
 
-        return $comment;
+        return $article;
     }
 }

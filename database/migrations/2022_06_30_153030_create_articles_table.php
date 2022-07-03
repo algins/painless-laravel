@@ -14,6 +14,7 @@ return new class extends Migration
             $table->text('content');
             $table->integer('comments_count');
             $table->string('status');
+            $table->foreignId('user_id')->constrained()->onDelete('set null');
             $table->timestamps();
         });
     }
