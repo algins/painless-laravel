@@ -6,7 +6,7 @@ return [
         'index' => [
             'comments' => 'Comments (:count)',
             'delete' => 'Delete',
-            'edit' => 'Edit',
+            'publish' => 'Publish',
             'title' => 'Articles',
         ],
     ],

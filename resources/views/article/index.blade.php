@@ -8,7 +8,11 @@
         <div class="card my-3">
             <div class="card-body">
                 <p @class(['text-danger' => $article->isDraft()])>{{ $article->status }}</p>
-                <h2 class="card-title h3">{{ $article->title }}</h2>
+
+                <h2 class="card-title h3">
+                    <a href="#" class="text-">{{ $article->title }}</a>
+                </h2>
+
                 <h3 class="card-subtitle mb-2 text-muted h6">{{ $article->date }}</h3>
                 <p class="card-text">{{ $article->content }}</p>
 
@@ -19,7 +23,10 @@
 
                     <div class="col-12 col-sm-6">
                         <div class="d-flex justify-content-end gap-2">
-                            <a href="#" class="btn btn-primary px-4">{{ __('views.article.index.edit') }}</a>
+                            @if ($article->canBePublished())
+                                <a href="#" class="btn btn-success px-3">{{ __('views.article.index.publish') }}</a>
+                            @endif
+
                             <a href="#" class="btn btn-danger px-3">{{ __('views.article.index.delete') }}</a>
                         </div>
                     </div>

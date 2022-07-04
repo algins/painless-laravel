@@ -7,6 +7,8 @@ use App\Models\Article\Comment;
 use App\Models\User;
 use App\Presenters\ArticlePresenter;
 use App\Repositories\ArticleRepository;
+use App\StateMachines\ArticleStatusStateMachine;
+use Asantibanez\LaravelEloquentStateMachines\Traits\HasStateMachines;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -17,11 +19,16 @@ class Article extends Model
     use ArticlePresenter;
     use ArticleRepository;
     use HasFactory;
+    use HasStateMachines;
 
     protected $fillable = [
         'title',
         'content',
         'status',
+    ];
+
+    public $stateMachines = [
+        'status' => ArticleStatusStateMachine::class,
     ];
 
     public function user(): BelongsTo
@@ -42,5 +49,10 @@ class Article extends Model
     public function isPublished(): bool
     {
         return $this->status === ArticleStatus::Published->value;
+    }
+
+    public function canBePublished(): bool
+    {
+        return $this->status()->canBe(ArticleStatus::Published);
     }
 }
